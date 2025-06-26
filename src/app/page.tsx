@@ -6,6 +6,8 @@ export default function HomePage() {
     <main className='min-h-screen bg-[#FFEEE2]'>
       <Header />
       <BannerSection />
+      <div className="h-[2000px]" />
+
     </main>
   );
 }

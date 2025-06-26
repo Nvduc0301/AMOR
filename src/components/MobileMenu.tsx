@@ -12,7 +12,7 @@ type MobileMenuProps = {
 };
 
 export default function MobileMenu( { isOpen, onClose }: MobileMenuProps) {
-    const [show, setShow] = useState(false);
+    const [show, setShow] = useState<boolean>(false);
     const pathname = usePathname();
 
     useEffect(() => {
@@ -26,7 +26,7 @@ export default function MobileMenu( { isOpen, onClose }: MobileMenuProps) {
     if (!isOpen) {
         return null;
     }
-    
+
     return (
         <div className="fixed inset-0 z-50">
             <div

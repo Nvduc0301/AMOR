@@ -9,6 +9,7 @@ import Link from 'next/link';
 
 export default function Header() {
     const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
+    const [scrolled, setScrolled] = useState<boolean>(false);
     const pathname = usePathname();
     
     useEffect(() => {
@@ -20,11 +21,26 @@ export default function Header() {
     
         window.addEventListener('resize', handleResize);
         return () => window.removeEventListener('resize', handleResize);
-      }, []);
+    }, []);
+
+    useEffect(() => {
+        const handleScroll = () => {
+            setScrolled(window.scrollY > 0);
+        };
+
+        window.addEventListener('scroll', handleScroll);
+        return () => window.removeEventListener('scroll', handleScroll);
+    }, []);
 
     return (
       <>
-        <header className="fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-transparent px-8 py-6 flex justify-between items-center">
+        <header
+            className={`
+            fixed top-0 left-0 right-0 z-50 transition-all duration-300
+            px-8 py-6 flex justify-between items-center
+            ${scrolled ? 'bg-[#000000]/40' : 'bg-transparent'}
+            `}
+        >
             <div className="relative w-30 h-8">
                 <Image
                 src="/images/AmorLogo.png"
