@@ -3,9 +3,13 @@
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import MobileMenu from './MobileMenu';
+import { usePathname } from 'next/navigation';
+import { NAV_LINKS } from '@/const';
+import Link from 'next/link';
 
 export default function Header() {
     const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
+    const pathname = usePathname();
     
     useEffect(() => {
         const handleResize = () => {
@@ -30,11 +34,16 @@ export default function Header() {
                 priority
                 />
             </div>
-            <nav className="hidden md:flex gap-15 text-sm uppercase tracking-[0.02em]">
-            <a className='text-white font-bold' href="#">Trang chủ</a>
-            <a className='text-white font-bold' href="#">Về Amor</a>
-            <a className='text-white font-bold' href="#">Menu</a>
-            <a className='text-white font-bold' href="#">Doanh nghiệp</a>
+            <nav className="hidden md:flex gap-15 text-white text-sm uppercase tracking-[0.02em]">
+                {NAV_LINKS.map(({ label, href }) => (
+                    <Link
+                        key={href}
+                        href={href}
+                        className={`uppercase ${pathname === href ? 'font-bold' : 'font-normal'}`}
+                    >
+                        {label}
+                    </Link>
+                ))}
             </nav>
             <div className="hidden md:flex text-xl"></div>
             

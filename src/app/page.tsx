@@ -1,11 +1,11 @@
 import Header from '@/components/Header';
-import HeroSection from '@/components/BannerSection';
+import BannerSection from '@/feature/home/BannerSection';
 
 export default function HomePage() {
   return (
-    <main className='min-h-screen'>
+    <main className='min-h-screen bg-[#FFEEE2]'>
       <Header />
-      <HeroSection />
+      <BannerSection />
     </main>
   );
 }

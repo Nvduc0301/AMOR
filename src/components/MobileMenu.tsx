@@ -1,6 +1,10 @@
 'use client';
 
+import { NAV_LINKS } from '@/const';
 import Image from 'next/image';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+import { useEffect, useState } from 'react';
 
 type MobileMenuProps = {
   isOpen: boolean;
@@ -8,37 +12,56 @@ type MobileMenuProps = {
 };
 
 export default function MobileMenu( { isOpen, onClose }: MobileMenuProps) {
-  if (!isOpen) {
-    return null;
-  }
-  return (
-    <div
-      className={`
-        fixed inset-0 z-50 bg-black/40 backdrop-blur-2xl
-        transition-all duration-300 ease-in-out
-        transform ${isOpen ? 'translate-y-0 opacity-100' : 'translate-y-full opacity-0'}
-        text-white p-6
-      `}
-    >
-    {/* <div className="fixed inset-0 z-50 bg-[#00000066]/40 backdrop-blur-[75px] shadow-[0px_4px_4px_0px_#0000000A] text-white p-6"> */}
-      <div className="flex justify-between items-center">
-        <div className="relative w-28 h-8">
-          <Image
-            src="/images/AmorLogo.png"
-            alt="AMOR Logo"
-            layout="fill"
-            objectFit="contain"
-          />
-        </div>
-        <button onClick={onClose} className="text-3xl">&times;</button>
-      </div>
+    const [show, setShow] = useState(false);
+    const pathname = usePathname();
 
-      <nav className="flex flex-col gap-7 items-center mt-10 text-sm uppercase tracking-[0.02em]">
-        <a href="#" className="uppercase">Trang chủ</a>
-        <a href="#" className="uppercase">Về Amor</a>
-        <a href="#" className="uppercase">Menu</a>
-        <a href="#" className="uppercase">Khởi nghiệp</a>
-      </nav>
-    </div>
-  );
+    useEffect(() => {
+        if (isOpen) {
+            setTimeout(() => setShow(true), 10);
+        } else {
+            setShow(false);
+        }
+    }, [isOpen]);
+
+    if (!isOpen) {
+        return null;
+    }
+    
+    return (
+        <div className="fixed inset-0 z-50">
+            <div
+                className={`
+                transition-transform duration-300 ease-out 
+                transform 
+                ${show ? 'translate-y-0' : '-translate-y-full'}
+                text-white p-6 bg-[#00000066]/40 backdrop-blur-[75px] shadow-[0_0_4px_rgba(0,0,0,0.04)]
+                h-full
+                `}
+            >
+                <div className="flex justify-between items-center">
+                    <div className="relative w-28 h-8">
+                        <Image
+                        src="/images/AmorLogo.png"
+                        alt="AMOR Logo"
+                        layout="fill"
+                        objectFit="contain"
+                        />
+                    </div>
+                    <button onClick={onClose} className="text-3xl">&times;</button>
+                </div>
+
+                <nav className="flex flex-col gap-7 text-white items-center mt-10 text-lg font-semibold">
+                    {NAV_LINKS.map(({ label, href }) => (
+                        <Link
+                            key={href}
+                            href={href}
+                            className={`uppercase ${pathname === href ? 'font-bold' : 'font-normal'}`}
+                        >
+                            {label}
+                        </Link>
+                    ))}
+                </nav>
+            </div>
+        </div>
+    );
 }
