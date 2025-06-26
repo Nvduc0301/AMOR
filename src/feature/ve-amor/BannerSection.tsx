@@ -3,7 +3,7 @@ import Image from "next/image";
 export default function BannerSection() {
   return (
     <section className="pt-14 px-6 md:px-20">
-      <div className="hidden md:block container mx-auto">
+      <div className="container mx-auto">
         <div className="flex justify-center relative mt-5">
           <Image
             src="/images/Amor-spa.webp"
