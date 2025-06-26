@@ -44,7 +44,7 @@ export default function Header({ variant }: HeaderProps) {
       <header
         className={`
             fixed top-0 left-0 right-0 z-50 transition-all duration-300
-            px-8 py-6 flex justify-between items-center
+            md:px-8 md:py-6 p-0 flex justify-between items-center
             ${
               scrolled
                 ? isDark
