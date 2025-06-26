@@ -7,7 +7,11 @@ import { usePathname } from 'next/navigation';
 import { NAV_LINKS } from '@/const';
 import Link from 'next/link';
 
-export default function Header() {
+type HeaderProps = {
+    variant: 'dark' | 'light';
+};
+
+export default function Header({ variant }: HeaderProps) {
     const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
     const [scrolled, setScrolled] = useState<boolean>(false);
     const pathname = usePathname();
@@ -32,30 +36,36 @@ export default function Header() {
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
 
+    const isDark = variant === 'dark';
+
     return (
       <>
         <header
             className={`
             fixed top-0 left-0 right-0 z-50 transition-all duration-300
             px-8 py-6 flex justify-between items-center
-            ${scrolled ? 'bg-[#000000]/40' : 'bg-transparent'}
+            ${scrolled
+                ? isDark
+                ? 'bg-[#000000]/40'
+                : 'bg-white/20'
+                : 'bg-transparent ' + (isDark ? 'text-white' : 'text-black')}
             `}
         >
             <div className="relative w-30 h-8">
                 <Image
-                src="/images/AmorLogo.png"
+                src={`/images/${isDark ? 'AmorLogo.png' : 'AmorLogoAboutAmor.png'}`}
                 alt="AMOR Logo"
                 layout="fill"
                 objectFit="contain"
                 priority
                 />
             </div>
-            <nav className="hidden md:flex gap-15 text-white text-sm uppercase tracking-[0.02em]">
+            <nav className={`hidden md:flex gap-15 ${isDark ? 'text-white' : 'text-[#2E333D]'} text-sm uppercase tracking-[0.02em]`}>
                 {NAV_LINKS.map(({ label, href }) => (
                     <Link
                         key={href}
                         href={href}
-                        className={`uppercase ${pathname === href ? 'font-bold' : 'font-normal'}`}
+                        className={`uppercase ${pathname === href ? 'font-bold' : 'font-normal text-sm'}`}
                     >
                         {label}
                     </Link>
