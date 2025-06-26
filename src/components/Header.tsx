@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import MobileMenu from "./MobileMenu";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { NAV_LINKS } from "@/const";
 import Link from "next/link";
 
@@ -15,6 +15,7 @@ export default function Header({ variant }: HeaderProps) {
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
   const [scrolled, setScrolled] = useState<boolean>(false);
   const pathname = usePathname();
+  const router = useRouter();
 
   useEffect(() => {
     const handleResize = () => {
@@ -64,6 +65,7 @@ export default function Header({ variant }: HeaderProps) {
                 layout="fill"
                 objectFit="contain"
                 priority
+                onClick={() => router.push("/")}
               />
             </div>
             <nav
