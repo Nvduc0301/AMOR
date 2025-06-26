@@ -3,6 +3,23 @@ import Image from 'next/image';
 export default function BannerSection() {
   return (
     <section className="pt-40 px-6 md:px-20">
+        <div className="flex flex-col justify-center relative">
+            <Image
+                src="/images/SelfBanner.jpg"
+                alt="Founder"
+                width={300}
+                height={500}
+                className="z-10 relative "
+                />
+          <Image
+            src="/images/AmorLogoBanner.png"
+            alt="Founder"
+            width={300}
+            height={500}
+            className="z-1 relative"
+          />
+          
+        </div>
 
         <div className="text-center mt-10">
           <h2 className="text-2xl md:text-3xl text-[#722D15] font-semibold uppercase tracking-wide">
